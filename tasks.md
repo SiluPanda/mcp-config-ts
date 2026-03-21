@@ -6,12 +6,12 @@ This file tracks all implementation tasks derived from [SPEC.md](./SPEC.md). Tas
 
 ## Phase 0: Project Scaffolding and Setup
 
-- [ ] **Install dev dependencies** — Add `typescript`, `vitest`, and `eslint` as dev dependencies. Configure eslint for TypeScript. | Status: not_done
-- [ ] **Add CLI bin entry to package.json** — Add `"bin": { "mcp-config": "./dist/cli.js" }` to package.json so the CLI is available as `mcp-config` when installed globally or via npx. | Status: not_done
-- [ ] **Create directory structure** — Create all directories specified in Section 17: `src/config/`, `src/registry/`, `src/validation/`, `src/operations/`, `src/commands/`, `src/formatters/`, `src/utils/`, `src/__tests__/` (with subdirectories `config/`, `registry/`, `validation/`, `operations/`, `fixtures/`). | Status: not_done
-- [ ] **Create types.ts with all type definitions** — Define all TypeScript interfaces and types from Section 9: `MCPConfig`, `StdioServerEntry`, `HttpServerEntry`, `ServerEntry`, `ValidationResult`, `ValidationCheck`, `SyncOptions`, `SyncResult`, `ServerInfo`, `ManagerOptions`, `ConfigManager`, `RegistryEntry`, `DiscoverOptions`. | Status: not_done
-- [ ] **Create custom error classes in utils/errors.ts** — Implement `MCPConfigError`, `ConfigNotFoundError`, `ConfigParseError`, `ServerExistsError`, `ServerNotFoundError`, `ValidationError` as specified in Section 9 (Error Types). Each error class must have its `code` property and any additional fields (e.g., `configPath`, `serverName`, `parseError`, `result`). | Status: not_done
-- [ ] **Create test fixtures** — Create all fixture files listed in Section 17: `valid-config.json`, `invalid-json.txt`, `missing-mcpservers.json`, `mixed-transport.json`, `placeholder-env.json`, `claude-desktop-config.json`, `.env.test`. Each fixture should represent the scenario its name describes. | Status: not_done
+- [x] **Install dev dependencies** — Add `typescript`, `vitest`, and `eslint` as dev dependencies. Configure eslint for TypeScript. | Status: done
+- [x] **Add CLI bin entry to package.json** — Add `"bin": { "mcp-config": "./dist/cli.js" }` to package.json so the CLI is available as `mcp-config` when installed globally or via npx. | Status: done
+- [x] **Create directory structure** — Create all directories specified in Section 17: `src/config/`, `src/registry/`, `src/validation/`, `src/operations/`, `src/commands/`, `src/formatters/`, `src/utils/`, `src/__tests__/` (with subdirectories `config/`, `registry/`, `validation/`, `operations/`, `fixtures/`). | Status: done
+- [x] **Create types.ts with all type definitions** — Define all TypeScript interfaces and types from Section 9: `MCPConfig`, `StdioServerEntry`, `HttpServerEntry`, `ServerEntry`, `ValidationResult`, `ValidationCheck`, `SyncOptions`, `SyncResult`, `ServerInfo`, `ManagerOptions`, `ConfigManager`, `RegistryEntry`, `DiscoverOptions`. | Status: done
+- [x] **Create custom error classes in utils/errors.ts** — Implement `MCPConfigError`, `ConfigNotFoundError`, `ConfigParseError`, `ServerExistsError`, `ServerNotFoundError`, `ValidationError` as specified in Section 9 (Error Types). Each error class must have its `code` property and any additional fields (e.g., `configPath`, `serverName`, `parseError`, `result`). | Status: done
+- [x] **Create test fixtures** — Create all fixture files listed in Section 17: `valid-config.json`, `invalid-json.txt`, `missing-mcpservers.json`, `mixed-transport.json`, `placeholder-env.json`, `claude-desktop-config.json`, `.env.test`. Each fixture should represent the scenario its name describes. | Status: done
 
 ---
 
