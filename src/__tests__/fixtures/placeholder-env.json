@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "service": {
+      "command": "npx",
+      "args": ["@example/mcp-server"],
+      "env": { "API_KEY": "${API_KEY}", "SECRET": "${SECRET}" }
+    }
+  }
+}
