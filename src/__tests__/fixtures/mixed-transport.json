@@ -1,0 +1,6 @@
+{
+  "mcpServers": {
+    "local": { "command": "node", "args": ["server.js"] },
+    "remote": { "url": "https://mcp.example.com/api" }
+  }
+}

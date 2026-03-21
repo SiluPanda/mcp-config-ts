@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "claude-filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/Users/test/Documents"],
+      "disabled": false
+    }
+  }
+}
