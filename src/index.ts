@@ -22,3 +22,10 @@ export {
   ServerNotFoundError,
   ValidationError,
 } from './utils/errors';
+export { loadConfig } from './config/load';
+export { saveConfig } from './config/save';
+export { addServer, removeServer, getServer, listServers } from './config/operations';
+export { createManager } from './config/manager';
+export { validateConfig } from './validation/validate';
+export { validateJsonSyntax } from './validation/json-syntax';
+export { validateSchema } from './validation/schema';
