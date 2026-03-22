@@ -3,6 +3,7 @@
 Typed library and CLI for discovering, adding, validating, and syncing MCP server configurations.
 
 [![npm version](https://img.shields.io/npm/v/mcp-config-ts.svg)](https://www.npmjs.com/package/mcp-config-ts)
+[![npm downloads](https://img.shields.io/npm/dt/mcp-config-ts.svg)](https://www.npmjs.com/package/mcp-config-ts)
 [![license](https://img.shields.io/npm/l/mcp-config-ts.svg)](https://github.com/SiluPanda/mcp-config-ts/blob/master/LICENSE)
 [![node](https://img.shields.io/node/v/mcp-config-ts.svg)](https://nodejs.org)
 [![types](https://img.shields.io/npm/types/mcp-config-ts.svg)](https://www.npmjs.com/package/mcp-config-ts)
