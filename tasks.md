@@ -19,11 +19,11 @@ This file tracks all implementation tasks derived from [SPEC.md](./SPEC.md). Tas
 
 ### Config Loading (`src/config/load.ts`)
 
-- [ ] **Implement loadConfig() — basic file reading** — Read a JSON file from the given path, parse it, extract the `mcpServers` key, and return an `MCPConfig` object. Default to `.mcp.json` in cwd if no path is provided. | Status: not_done
-- [ ] **Implement loadConfig() — transport type inference** — For each entry in `mcpServers`, infer the transport type: if the entry has a `command` field, set `type: 'stdio'`; if it has a `url` field, set `type: 'http'`. | Status: not_done
-- [ ] **Implement loadConfig() — round-trip key preservation** — When parsing the config file, store all non-`mcpServers` keys in `_otherKeys` on the `MCPConfig` object so they can be preserved when saving. | Status: not_done
+- [x] **Implement loadConfig() — basic file reading** — Read a JSON file from the given path, parse it, extract the `mcpServers` key, and return an `MCPConfig` object. Default to `.mcp.json` in cwd if no path is provided. | Status: done
+- [x] **Implement loadConfig() — transport type inference** — For each entry in `mcpServers`, infer the transport type: if the entry has a `command` field, set `type: 'stdio'`; if it has a `url` field, set `type: 'http'`. | Status: done
+- [x] **Implement loadConfig() — round-trip key preservation** — When parsing the config file, store all non-`mcpServers` keys in `_otherKeys` on the `MCPConfig` object so they can be preserved when saving. | Status: done
 - [ ] **Implement loadConfig() — tool alias resolution** — If the `path` argument is a tool alias (`'claude-desktop'`, `'cursor'`, `'windsurf'`, `'cline'`), resolve it to the platform-specific path before reading. Delegate to `resolve-path.ts`. | Status: not_done
-- [ ] **Implement loadConfig() — error handling** — Throw `ConfigNotFoundError` if the file does not exist. Throw `ConfigParseError` if the file is not valid JSON. Include the file path and original error in the thrown error. | Status: not_done
+- [x] **Implement loadConfig() — error handling** — Throw `ConfigNotFoundError` if the file does not exist. Throw `ConfigParseError` if the file is not valid JSON. Include the file path and original error in the thrown error. | Status: done
 
 ### Config Path Resolution (`src/config/resolve-path.ts`)
 
@@ -37,36 +37,36 @@ This file tracks all implementation tasks derived from [SPEC.md](./SPEC.md). Tas
 
 ### Config Saving (`src/config/save.ts`)
 
-- [ ] **Implement saveConfig() — basic writing** — Write an `MCPConfig` object to a JSON file. Merge `servers` back into the `mcpServers` key. Format with 2-space indentation. Strip the `type` field from server entries before writing (it is inferred, not stored on disk). | Status: not_done
-- [ ] **Implement saveConfig() — round-trip preservation** — When writing, merge `_otherKeys` back into the top-level JSON object so non-MCP settings (e.g., `theme` in Claude Desktop config) are preserved. | Status: not_done
-- [ ] **Implement saveConfig() — parent directory creation** — If the target path's parent directories do not exist, create them recursively using `fs.mkdir({ recursive: true })`. | Status: not_done
+- [x] **Implement saveConfig() — basic writing** — Write an `MCPConfig` object to a JSON file. Merge `servers` back into the `mcpServers` key. Format with 2-space indentation. Strip the `type` field from server entries before writing (it is inferred, not stored on disk). | Status: done
+- [x] **Implement saveConfig() — round-trip preservation** — When writing, merge `_otherKeys` back into the top-level JSON object so non-MCP settings (e.g., `theme` in Claude Desktop config) are preserved. | Status: done
+- [x] **Implement saveConfig() — parent directory creation** — If the target path's parent directories do not exist, create them recursively using `fs.mkdir({ recursive: true })`. | Status: done
 - [ ] **Implement saveConfig() — path default and alias support** — If no path is provided, write to `config.filePath`. Support tool aliases by resolving them before writing. | Status: not_done
 
 ### Validation Level 1: JSON Syntax (`src/validation/json-syntax.ts`)
 
-- [ ] **Implement JSON syntax validation** — Check if the file content is valid JSON. Return a `ValidationCheck` with `id: 'json-syntax'`, `severity: 'error'`, `passed: true/false`, and a descriptive message. Handle empty files, trailing commas, unquoted keys, and other common JSON errors with clear error messages. | Status: not_done
+- [x] **Implement JSON syntax validation** — Check if the file content is valid JSON. Return a `ValidationCheck` with `id: 'json-syntax'`, `severity: 'error'`, `passed: true/false`, and a descriptive message. Handle empty files, trailing commas, unquoted keys, and other common JSON errors with clear error messages. | Status: done
 
 ### Validation Level 2: Schema Structure (`src/validation/schema.ts`)
 
-- [ ] **Check mcpServers key presence** — Verify the parsed JSON has a top-level `mcpServers` key. Return `ValidationCheck` with `id: 'schema-mcpservers-present'`. | Status: not_done
-- [ ] **Check mcpServers type** — Verify `mcpServers` is an object (not array, string, null, etc.). | Status: not_done
-- [ ] **Check server entry required fields** — For each server entry, verify it has at least `command` (stdio) or `url` (http). Report missing required fields. | Status: not_done
+- [x] **Check mcpServers key presence** — Verify the parsed JSON has a top-level `mcpServers` key. Return `ValidationCheck` with `id: 'schema-mcpservers-present'`. | Status: done
+- [x] **Check mcpServers type** — Verify `mcpServers` is an object (not array, string, null, etc.). | Status: done
+- [x] **Check server entry required fields** — For each server entry, verify it has at least `command` (stdio) or `url` (http). Report missing required fields. | Status: done
 - [ ] **Check field types** — Verify `command` is a string, `args` is a string array, `env` is an object of string values, `url` is a string. Report type mismatches. | Status: not_done
 - [ ] **Detect unknown fields** — Warn about unknown fields in server entries that might indicate typos (e.g., `cmd` instead of `command`, `arguments` instead of `args`). | Status: not_done
 
 ### Validation Level 3: Transport Consistency (`src/validation/transport.ts`)
 
 - [ ] **Detect mixed transport** — Flag server entries that have both `command` and `url` as errors (ambiguous transport type). | Status: not_done
-- [ ] **Validate stdio entry fields** — For stdio entries: verify `command` is a non-empty string, `args` is an array of strings (not numbers or objects). | Status: not_done
-- [ ] **Validate HTTP entry fields** — For HTTP entries: verify `url` is a syntactically valid URL with `http://` or `https://` scheme. | Status: not_done
+- [x] **Validate stdio entry fields** — For stdio entries: verify `command` is a non-empty string, `args` is an array of strings (not numbers or objects). | Status: done
+- [x] **Validate HTTP entry fields** — For HTTP entries: verify `url` is a syntactically valid URL with `http://` or `https://` scheme. | Status: done
 
 ### Validation Orchestrator (`src/validation/validate.ts`)
 
-- [ ] **Implement validateConfig()** — Orchestrate validation by running checks for levels 1 through the requested `level` (default 3). Collect all `ValidationCheck` results, compute the summary (total, passed, failed, warnings), and return a `ValidationResult`. Accept options `level`, `checkNpm`, `checkEnv`. | Status: not_done
+- [x] **Implement validateConfig()** — Orchestrate validation by running checks for levels 1 through the requested `level` (default 3). Collect all `ValidationCheck` results, compute the summary (total, passed, failed, warnings), and return a `ValidationResult`. Accept options `level`, `checkNpm`, `checkEnv`. | Status: done
 
 ### Completeness Score (`src/validation/completeness.ts`)
 
-- [ ] **Implement completeness score calculation** — Start at 100 points. Deduct 30 per schema structure error, 20 per transport consistency error, 10 per missing command, 10 per missing required env var, 5 per warning. Floor at 0. Per Section 7 (Completeness Score). | Status: not_done
+- [x] **Implement completeness score calculation** — Start at 100 points. Deduct 30 per schema structure error, 20 per transport consistency error, 10 per missing command, 10 per missing required env var, 5 per warning. Floor at 0. Per Section 7 (Completeness Score). | Status: done
 
 ### Duplicate Server Name Detection
 
@@ -74,11 +74,11 @@ This file tracks all implementation tasks derived from [SPEC.md](./SPEC.md). Tas
 
 ### Add Server (`src/operations/add.ts`)
 
-- [ ] **Implement addServer()** — Accept an `MCPConfig`, a server name, and a `ServerEntry`. Return a new `MCPConfig` with the server added. Throw `ServerExistsError` if the server name already exists. Do not mutate the input. | Status: not_done
+- [x] **Implement addServer()** — Accept an `MCPConfig`, a server name, and a `ServerEntry`. Return a new `MCPConfig` with the server added. Throw `ServerExistsError` if the server name already exists. Do not mutate the input. | Status: done
 
 ### Remove Server (`src/operations/remove.ts`)
 
-- [ ] **Implement removeServer()** — Accept an `MCPConfig` and a server name. Return a new `MCPConfig` with the server removed. Throw `ServerNotFoundError` if the server does not exist. Do not mutate the input. | Status: not_done
+- [x] **Implement removeServer()** — Accept an `MCPConfig` and a server name. Return a new `MCPConfig` with the server removed. Throw `ServerNotFoundError` if the server does not exist. Do not mutate the input. | Status: done
 
 ### Output Formatters
 
@@ -121,17 +121,17 @@ This file tracks all implementation tasks derived from [SPEC.md](./SPEC.md). Tas
 
 ### Public API Exports (`src/index.ts`)
 
-- [ ] **Export all public API functions** — Export `loadConfig`, `saveConfig`, `validateConfig`, `addServer`, `removeServer`, `syncConfigs`, `discoverServers`, `createManager`, `addServerFromRegistry`. Export all public types. Export error classes. Per Section 9 (Main Exports). | Status: not_done
+- [x] **Export all public API functions** — Export `loadConfig`, `saveConfig`, `validateConfig`, `addServer`, `removeServer`, `syncConfigs`, `discoverServers`, `createManager`, `addServerFromRegistry`. Export all public types. Export error classes. Per Section 9 (Main Exports). | Status: done
 
 ### Phase 1 Tests
 
-- [ ] **Write config load tests (`src/__tests__/config/load.test.ts`)** — Test: loading a valid config, transport type inference, round-trip key preservation, tool alias resolution, ConfigNotFoundError for missing files, ConfigParseError for invalid JSON, handling of empty files. | Status: not_done
-- [ ] **Write config save tests (`src/__tests__/config/save.test.ts`)** — Test: writing valid config, round-trip preservation of non-MCP keys, 2-space indentation, parent directory creation, stripping `type` field from entries. | Status: not_done
+- [x] **Write config load tests (`src/__tests__/config/load.test.ts`)** — Test: loading a valid config, transport type inference, round-trip key preservation, tool alias resolution, ConfigNotFoundError for missing files, ConfigParseError for invalid JSON, handling of empty files. | Status: done
+- [x] **Write config save tests (`src/__tests__/config/save.test.ts`)** — Test: writing valid config, round-trip preservation of non-MCP keys, 2-space indentation, parent directory creation, stripping `type` field from entries. | Status: done
 - [ ] **Write config resolve-path tests (`src/__tests__/config/resolve-path.test.ts`)** — Test: all four tool alias resolutions on macOS/Linux/Windows, default cwd `.mcp.json` discovery, parent directory walk, `MCP_CONFIG_PATH` env var. | Status: not_done
 - [ ] **Write JSON syntax validation tests (`src/__tests__/validation/json-syntax.test.ts`)** — Test: valid JSON passes, empty file fails, trailing commas fail, unquoted keys fail, clear error messages for each case. | Status: not_done
 - [ ] **Write schema validation tests (`src/__tests__/validation/schema.test.ts`)** — Test: missing `mcpServers` key, `mcpServers` as array, server entry with no `command` or `url`, field type mismatches, unknown field detection. | Status: not_done
 - [ ] **Write transport validation tests (`src/__tests__/validation/transport.test.ts`)** — Test: entry with both `command` and `url`, empty `command` string, `args` with non-string values, invalid URL scheme, URL syntax validation. | Status: not_done
-- [ ] **Write validate orchestrator tests (`src/__tests__/validation/validate.test.ts`)** — Test: running levels 1-3, summary counts, completeness score, correct check ordering. | Status: not_done
+- [x] **Write validate orchestrator tests (`src/__tests__/validation/validate.test.ts`)** — Test: running levels 1-3, summary counts, completeness score, correct check ordering. | Status: done
 - [ ] **Write add operation tests (`src/__tests__/operations/add.test.ts`)** — Test: adding a server, rejecting duplicates (ServerExistsError), immutability (original config unchanged). | Status: not_done
 - [ ] **Write remove operation tests (`src/__tests__/operations/remove.test.ts`)** — Test: removing a server, rejecting non-existent servers (ServerNotFoundError), removing last server leaves `{}`, immutability. | Status: not_done
 
@@ -249,17 +249,17 @@ This file tracks all implementation tasks derived from [SPEC.md](./SPEC.md). Tas
 
 ### ConfigManager (`src/manager.ts`)
 
-- [ ] **Implement createManager()** — Create and return a `ConfigManager` instance. Accept `ManagerOptions` (configPath, validationLevel). | Status: not_done
-- [ ] **Implement ConfigManager.load()** — Load the config from disk using `loadConfig()`. Store internally. | Status: not_done
-- [ ] **Implement ConfigManager.save()** — Save the current config to disk using `saveConfig()`. | Status: not_done
-- [ ] **Implement ConfigManager.getConfig()** — Return the current `MCPConfig`. Throw if not loaded. | Status: not_done
-- [ ] **Implement ConfigManager.list()** — Return all server names from the current config. | Status: not_done
-- [ ] **Implement ConfigManager.get()** — Return a specific server entry by name, or `undefined`. | Status: not_done
-- [ ] **Implement ConfigManager.add()** — Add a server. Delegate to `addServer()`. Throw `ServerExistsError` if it already exists. | Status: not_done
+- [x] **Implement createManager()** — Create and return a `ConfigManager` instance. Accept `ManagerOptions` (configPath, validationLevel). | Status: done
+- [x] **Implement ConfigManager.load()** — Load the config from disk using `loadConfig()`. Store internally. | Status: done
+- [x] **Implement ConfigManager.save()** — Save the current config to disk using `saveConfig()`. | Status: done
+- [x] **Implement ConfigManager.getConfig()** — Return the current `MCPConfig`. Throw if not loaded. | Status: done
+- [x] **Implement ConfigManager.list()** — Return all server names from the current config. | Status: done
+- [x] **Implement ConfigManager.get()** — Return a specific server entry by name, or `undefined`. | Status: done
+- [x] **Implement ConfigManager.add()** — Add a server. Delegate to `addServer()`. Throw `ServerExistsError` if it already exists. | Status: done
 - [ ] **Implement ConfigManager.addFromRegistry()** — Add a server from the registry. Delegate to `addServerFromRegistry()`. | Status: not_done
-- [ ] **Implement ConfigManager.remove()** — Remove a server. Delegate to `removeServer()`. Throw `ServerNotFoundError` if it does not exist. | Status: not_done
-- [ ] **Implement ConfigManager.validate()** — Validate the current config. Delegate to `validateConfig()`. | Status: not_done
-- [ ] **Implement ConfigManager.has()** — Return true if a server with the given name exists in the config. | Status: not_done
+- [x] **Implement ConfigManager.remove()** — Remove a server. Delegate to `removeServer()`. Throw `ServerNotFoundError` if it does not exist. | Status: done
+- [x] **Implement ConfigManager.validate()** — Validate the current config. Delegate to `validateConfig()`. | Status: done
+- [x] **Implement ConfigManager.has()** — Return true if a server with the given name exists in the config. | Status: done
 
 ### Doctor — mcp-healthcheck Integration (`src/commands/doctor.ts` extension)
 
@@ -276,7 +276,7 @@ This file tracks all implementation tasks derived from [SPEC.md](./SPEC.md). Tas
 
 ### Phase 4 Tests
 
-- [ ] **Write manager tests (`src/__tests__/manager.test.ts`)** — Test: load, save, getConfig (loaded and not loaded), list, get, add (and duplicate error), addFromRegistry, remove (and not-found error), validate, has. | Status: not_done
+- [x] **Write manager tests (`src/__tests__/manager.test.ts`)** — Test: load, save, getConfig (loaded and not loaded), list, get, add (and duplicate error), addFromRegistry, remove (and not-found error), validate, has. | Status: done
 - [ ] **Write CLI integration tests (`src/__tests__/cli.test.ts`)** — Invoke the CLI binary via `child_process.execFile` for each command. Verify stdout output and exit codes. Test: `--version`, `--help`, `init`, `list`, `add` (manual and registry), `remove`, `validate` (pass and fail), `search`, `sync` (with dry-run), `doctor`. Test `--format json` output is valid JSON. Test exit codes (0, 1, 2). | Status: not_done
 - [ ] **Write integration round-trip test (`src/__tests__/integration.test.ts`)** — Full round-trip: create config with `init`, add servers with `add`, validate with `validate`, sync to another file, remove a server, re-validate. Verify file on disk at each step. | Status: not_done
 - [ ] **Write sync integration test** — Create two temp config files with overlapping and unique servers. Run `syncConfigs` with each conflict strategy. Read target file and verify contents. | Status: not_done
