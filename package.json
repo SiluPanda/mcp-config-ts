@@ -1,12 +1,9 @@
 {
   "name": "mcp-config-ts",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "CLI to discover, add, validate, and sync MCP server configs",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "bin": {
-    "mcp-config": "./dist/cli.js"
-  },
   "files": [
     "dist"
   ],
