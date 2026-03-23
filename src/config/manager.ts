@@ -1,6 +1,5 @@
 import { resolve } from 'path'
 import type { ConfigManager, ManagerOptions, MCPConfig, ServerEntry, ValidationResult } from '../types'
-import { ServerNotFoundError } from '../utils/errors'
 import { loadConfig } from './load'
 import { saveConfig } from './save'
 import { validateConfig } from '../validation/validate'
@@ -46,18 +45,17 @@ export function createManager(options?: ManagerOptions): ConfigManager {
     },
 
     addFromRegistry(_registryName: string, _envValues?: Record<string, string>): void {
-      throw new ServerNotFoundError(_registryName)
+      throw new Error('addFromRegistry is not yet implemented')
     },
 
     remove(serverName: string): void {
       removeServer(assertLoaded(), serverName)
     },
 
-    async validate(opts?: { level?: 1 | 2 | 3 | 4 | 5 }): Promise<ValidationResult> {
+    async validate(opts?: { level?: 1 | 2 | 3 }): Promise<ValidationResult> {
       const config = assertLoaded()
-      const level = (opts?.level ?? 3) as 1 | 2 | 3
-      const clampedLevel: 1 | 2 | 3 = level > 3 ? 3 : level < 1 ? 1 : level
-      return validateConfig(config, { level: clampedLevel })
+      const level = opts?.level ?? 3
+      return validateConfig(config, { level })
     },
 
     has(serverName: string): boolean {

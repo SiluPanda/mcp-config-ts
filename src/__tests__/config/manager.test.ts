@@ -142,4 +142,22 @@ describe('createManager', () => {
     expect(result.checks).toBeDefined()
     expect(result.completenessScore).toBeGreaterThanOrEqual(0)
   })
+
+  it('validate() accepts levels 1, 2, and 3', async () => {
+    const file = makeConfigFile({ mcpServers: { s: { command: 'node' } } })
+    const manager = createManager({ configPath: file })
+    await manager.load()
+    for (const level of [1, 2, 3] as const) {
+      const result = await manager.validate({ level })
+      expect(result.valid).toBeDefined()
+      expect(result.checks).toBeDefined()
+    }
+  })
+
+  it('addFromRegistry throws not-implemented error', async () => {
+    const file = makeConfigFile({ mcpServers: {} })
+    const manager = createManager({ configPath: file })
+    await manager.load()
+    expect(() => manager.addFromRegistry('some-registry')).toThrow('not yet implemented')
+  })
 })

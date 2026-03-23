@@ -150,7 +150,7 @@ export interface ManagerOptions {
   configPath?: string;
 
   /** Validation level for automatic validation. */
-  validationLevel?: 1 | 2 | 3 | 4 | 5;
+  validationLevel?: 1 | 2 | 3;
 }
 
 export interface ConfigManager {
@@ -179,7 +179,7 @@ export interface ConfigManager {
   remove(serverName: string): void;
 
   /** Validate the current config. */
-  validate(options?: { level?: 1 | 2 | 3 | 4 | 5 }): Promise<ValidationResult>;
+  validate(options?: { level?: 1 | 2 | 3 }): Promise<ValidationResult>;
 
   /** Check if a server exists. */
   has(serverName: string): boolean;
