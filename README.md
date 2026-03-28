@@ -72,6 +72,28 @@ const names = listServers(config); // ['filesystem', 'github', ...]
 const entry = getServer(config, 'github'); // ServerEntry | undefined
 ```
 
+### Firewall-wrapped stdio entry
+
+You can also register a stdio server through a wrapper command when you want a transport boundary in front of an existing MCP server:
+
+```typescript
+addServer(config, 'filesystem-safe', {
+  type: 'stdio',
+  command: 'npx',
+  args: [
+    '-y',
+    'mcp-transport-firewall',
+    '--',
+    'npx',
+    '-y',
+    '@modelcontextprotocol/server-filesystem',
+    '/path/to/dir',
+  ],
+});
+```
+
+See the package config examples in [`mcp-transport-firewall`](https://github.com/shleder/mcp-transport-firewall/blob/main/docs/CLIENT_CONFIGS.md) for more wrapper patterns.
+
 ## Features
 
 - **Load and parse** `.mcp.json` files with automatic transport type inference (stdio vs. HTTP).
